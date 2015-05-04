@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html ng-app="todoLists">
+<head lang="en">
+	<meta charset="UTF-8">
+	<title></title>
+
+	<link rel="stylesheet" href="css/master.css" />
+
+	<script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+	<script src='https://cdn.firebase.com/js/client/2.2.1/firebase.js'></script>
+	<script src="https://cdn.firebase.com/libs/angularfire/1.0.0/angularfire.min.js"></script>
+
+	<script src="js/jo-ToDoList.js"></script>
+
+</head>
+<body ng-controller="TodoCtrl">
+
+	<h2>Users</h2>
+	<ul>
+		<li ng-repeat="user in users">
+			<span ng-click="getListForUser(user.username)">{{user.username}}</span>
+		</li>
+		<li>
+			<span ng-click="showAddNewUser = !showAddNewUser">Add new user:</span>
+			<div ng-show="showAddNewUser">
+				<input type="text" placeholder="Username" ng-model="newUser.username"><br>
+				<input type="text" placeholder="First Name" ng-model="newUser.first_name"><br>
+				<input type="text" placeholder="Last Name" ng-model="newUser.last_name"><br>
+				<button ng-click="addUser()">Add User</button>
+			</div>
+		</li>
+	</ul>
+
+	<h2>Lists</h2>
+	<ul>
+		<li ng-repeat="listItem in userList">
+			<div>{{listItem.desc}}</div>
+			<div>Priority: {{listItem.priority}}</div>
+		</li>
+		<li>
+			<span ng-click="showAddNewListItem = !showAddNewListItem">Add new item:</span>
+			<div ng-show="showAddNewListItem">
+				<input type="text" placeholder="New list item" ng-model="newListItem.desc">
+				<select ng-model="newListItem.priority">
+					<option value="1">High</option>
+					<option value="2">Med</option>
+					<option value="3">Low</option>
+				</select>
+				<button ng-click="addListItem()">Add List Item</button>
+			</div>
+		</li>
+	</ul>
+
+	<h2>List Item Priorities</h2>
+	<ul>
+		<li ng-repeat="item in priorities">
+			{{item}}
+		</li>
+	</ul>
+
+	<h3>Users Firebase Object</h3>
+<pre>{{users}}</pre>
+
+	<h3>UserList Firebase Object</h3>
+<pre>{{userList}}</pre>
+
+
+</body>
+</html>
